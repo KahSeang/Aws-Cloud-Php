@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://localhost/AsgmPhPKS/event.php?user_id=1 -->
+<html class="hydrated"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style data-styles="">ion-icon{visibility:hidden}.hydrated{visibility:inherit}</style>
+    <title></title>
+    <style>
+                 body {
+    background-image: url('Websystemphp/10.webp');
+    background-size: cover;
+    background-position: center;
+    p
+}       .event-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px; /* Adjust gap between evwebent cards */
+            padding: 20px;
+        }
+
+        .event {
+            position: relative; /* Ensure z-index works */
+    background-color: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Ensures that border-radius is applied to images too */
+            width: calc(33.333% - 20px); /* Three columns with gaps */
+            max-width: 400px; /* Adjust max-width as needed */
+            opacity: 0; /* Initially set opacity to 0 */
+            transform: translateY(20px); /* Initially move cards down */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+        }
+
+        /* Animation when card becomes visible */
+        .event.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .event img {
+            width: 100%;
+            height: 300px; /* Adjust this value to make the images bigger */
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: transform 0.5s ease; /* Smooth transition for hover effect */
+        }
+
+        .event:hover img {
+            transform: scale(1.0); /* Scale up image on hover */
+        }
+
+        /* Hover overlay */
+        .event .hover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease; /* Smooth transition for overlay */
+            z-index: 1; /* Ensure overlay is above image */
+        }
+
+        .event:hover .hover-overlay {
+            opacity: 1; /* Show overlay on hover */
+        }
+
+        .event .hover-text {
+            color: #fff;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        /* Rest of your CSS */
+
+        .event h2 {
+            font-size: 18px;
+            margin: 0;
+            color: #333;
+            position: relative; /* Ensure z-index works */
+            z-index: 1; /* Ensure text is above overlay */
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+            float: right; /* Move the search container to the right */
+
+        }
+
+        .search-container input[type=text] {
+            padding: 10px;
+            margin-top: 8px;
+            font-size: 17px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .search-container button {
+            padding: 10px;
+            margin-top: 8px;
+            background: #333;
+            color: white;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+      
+        .event-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .event-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .event-info h5 {
+            margin: 10px 0;
+        }
+
+        .event-info p {
+            margin: 5px 0;
+        font-size: 16px;
+        color: #444;
+             text-align: center;
+        }
+
+        .event-info span {
+            font-weight: bold;
+            color: #333;
+             text-align: center;
+        }
+
+        /* Fading in elements */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 2s;
+        }
+
+        /* Icon styles */
+        .event-icon {
+            margin-right: 7px;
+            vertical-align: middle;
+        }
+
+        /* Responsive grid */
+        @media (max-width: 1200px) {
+            .event-card { width: calc(33.333% - 30px); }
+        }
+
+        @media (max-width: 992px) {
+            .event-card { width: calc(50% - 30px); }
+        }
+
+        @media (max-width: 768px) {
+            .event-card { width: 100%; }
+        }  
+         @keyframes fadeInUp {
+       from {
+           transform: translate3d(0, 20px, 0);
+           opacity: 0;
+       }
+       to {
+           transform: translate3d(0, 0, 0);
+           opacity: 1;
+       }
+   }
+
+   .event {
+       animation: fadeInUp 0.5s ease forwards;
+       /* Ensure that animation only plays once */
+       animation-fill-mode: both;
+   }
+   
+    </style>
+    <style>
+    /* Countdown timer styles */
+    #countdown {
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #countdown .timer-section {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    #countdown .timer-section:last-child {
+        margin-right: 0;
+    }
+
+    #countdown .timer-label {
+        font-size: 16px;
+        color: #555;
+    }
+
+    #countdown .timer-value {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
+    .event icon{
+      margin-right: 10px;  
+    }
+</style>
+
+</head>
+<body>
+      
+
+
+
+
+
+    
+    <title>OK Society</title>
+ <style>
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+font-family: 'Roboto', sans-serif;
+        }
+        body {
+font-family: 'Roboto', sans-serif;
+        }
+        nav {
+            background: #666666;
+            height: 100px;
+            width: 100%;
+        }
+
+        nav ul {
+            float: right;
+            margin-right: 20px;
+        }
+
+        nav ul li {
+            display: inline-block;
+            line-height: 100px;
+            margin: 0 18px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        nav li a {
+            transition: all 0.5s ease-in-out;
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        nav li a:hover {
+            color: darkgray;
+            font-weight: bold;
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .button {
+            padding: 9px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            background-color: rgba(100, 196, 195, 0.9);
+            color: rgba(0, 0, 0, 0.8);
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: rgba(100, 196, 195, 1);
+        }
+
+        .button:focus {
+            outline: none;
+        }
+   
+   .custom-cursor {
+    cursor: url('Websystemphp/cursor.png'), auto;
+}
+
+
+    </style>
+
+
+    
+      <nav>
+
+  <span>
+            <img src="./event_files/oklogo.png" style="width:100px;height:100px;margin-left:20px;">
+        </span>        <ul>
+            <li><a href="http://localhost/AsgmPhPKS/home.php?user_id=1">Home</a></li>
+            <li><a href="http://localhost/AsgmPhPKS/aboutus.php?user_id=1">About Us</a></li>
+            <li><a href="http://localhost/AsgmPhPKS/event.php?user_id=1">Events</a></li>
+            <li><a href="http://localhost/AsgmPhPKS/feedback.php?user_id=1">Feedback</a></li>
+            <li><a href="http://localhost/AsgmPhPKS/event_history.php?user_id=1">History</a></li>
+            <li><a href="http://localhost/AsgmPhPKS/userprofile.php?user_id=1">Profile</a>
+</li>
+            <li><a href="http://localhost/AsgmPhPKS/favorite_events.php?user_id=1">Favourite</a></li>
+            <li><a href="http://localhost/AsgmPhPKS/cart.php?user_id=1">Cart</a></li>
+                        <li><a href="http://localhost/AsgmPhPKS/moment.php?user_id=1">Moment</a></li>
+                                                <li><a href="http://localhost/AsgmPhPKS/chatbot.php?user_id=1">Chat Box</a></li>
+                                                                                                <li><a href="http://localhost/AsgmPhPKS/certificate.php?user_id=1">SoftSkill</a></li>
+
+
+                        
+
+            
+    
+    <li><a href="http://localhost/AsgmPhPKS/login.php"><button class="button">LogIn</button></a></li>
+
+
+        </ul>
+    </nav>
+
+ 
+
+
+
+
+    
+    <title></title>
+    <style>
+        #navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        
+        #navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        
+        #navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
+
+
+    <header>   
+        <div id="navbar">
+            <div id="links">
+               
+                <a href="http://localhost/AsgmPhPKS/event.php?category_id=1">ALL</a><a href="http://localhost/AsgmPhPKS/event.php?category_id=2">FACULTY GAME</a><a href="http://localhost/AsgmPhPKS/event.php?category_id=4">FESTIVAL</a><a href="http://localhost/AsgmPhPKS/event.php?category_id=5">TALK SHOW</a><a href="http://localhost/AsgmPhPKS/event.php?category_id=6">TALENTSHOW</a>            </div>
+        </div>
+    </header>
+
+
+
+<div class="search-container">
+    <form action="http://localhost/AsgmPhPKS/event.php" method="GET">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit">Search</button>
+    </form>
+</div>
+<br><br><br> <br>
+<div id="countdown">
+    <div class="timer-section">
+        <span class="timer-value" id="days">235</span>
+        <span class="timer-label">Days</span>
+    </div>
+    <div class="timer-section">
+        <span class="timer-value" id="hours">21</span>
+        <span class="timer-label">Hours</span>
+    </div>
+    <div class="timer-section">
+        <span class="timer-value" id="minutes">54</span>
+        <span class="timer-label">Minutes</span>
+    </div>
+    <div class="timer-section">
+        <span class="timer-value" id="seconds">44</span>
+        <span class="timer-label">Seconds</span>
+    </div>
+</div>
+<script>
+    // JavaScript for the countdown timer
+    // Set the date you're counting down to (replace 'yyyy-mm-dd' with your desired date)
+    var countDownDate = new Date("2025-01-01").getTime();
+
+    // Update the countdown every 1 second
+    var x = setInterval(function() {
+        // Get the current date and time
+        var now = new Date().getTime();
+
+        // Calculate the remaining time in milliseconds
+        var distance = countDownDate - now;
+
+        // Calculate days, hours, minutes, and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Add leading zeros if necessary
+        days = days < 10 ? "0" + days : days;
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        // Display the countdown timer
+        document.getElementById("days").textContent = days;
+        document.getElementById("hours").textContent = hours;
+        document.getElementById("minutes").textContent = minutes;
+        document.getElementById("seconds").textContent = seconds;
+
+        // If the countdown is over, display a message
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("countdown").innerHTML = "EXPIRED";
+        }
+    }, 1000);
+</script>
+
+<div class="event-container">
+    
+                <div class="event animate" style="animation-delay: 0ms;">
+                <a href="http://localhost/AsgmPhPKS/event_detail.php?event_id=1">
+                    <img class="normal-image" src="./event_files/basketball.jpeg" alt="BasketBall Competitions">
+                    <img class="hover-image" src="./event_files/basketball.jpg" alt="BasketBall Competitions" style="display: none; opacity: 0;">
+                    <div class="hover-overlay">
+                        <div class="hover-text">BasketBall Competitions</div>
+                    </div>
+                </a>
+                <h2 style="text-align: center">BasketBall Competitions</h2>
+
+                <ion-icon name="list-circle-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="round" stroke-linejoin="round" d="M224 184h128M224 256h128M224 327h128" class="ionicon-fill-none ionicon-stroke-width"></path><path d="M448 258c0-106-86-192-192-192S64 152 64 258s86 192 192 192 192-86 192-192z" stroke-miterlimit="10" class="ionicon-fill-none ionicon-stroke-width"></path><circle cx="168" cy="184" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle><circle cx="168" cy="257" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle><circle cx="168" cy="328" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle></svg></div></template></ion-icon>FACULTY GAME<br>
+                <ion-icon name="time-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64z" stroke-miterlimit="10" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linecap="round" stroke-linejoin="round" d="M256 128v144h96" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>5:00pm - 7:00pm<br>
+                 <ion-icon name="calendar-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect stroke-linejoin="round" x="48" y="80" width="416" height="384" rx="48" class="ionicon-fill-none ionicon-stroke-width"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path stroke-linejoin="round" stroke-linecap="round" d="M128 48v32M384 48v32" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linejoin="round" d="M464 160H48" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>2024-03-21<br>
+                 <ion-icon name="calendar-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect stroke-linejoin="round" x="48" y="80" width="416" height="384" rx="48" class="ionicon-fill-none ionicon-stroke-width"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path stroke-linejoin="round" stroke-linecap="round" d="M128 48v32M384 48v32" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linejoin="round" d="M464 160H48" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>2024-04-03<br>
+            </div>
+
+                        <div class="event animate" style="animation-delay: 100ms;">
+                <a href="http://localhost/AsgmPhPKS/event_detail.php?event_id=2">
+                    <img class="normal-image" src="./event_files/badmintoncourt1.3.jpg" alt="BADMINTON ">
+                    <img class="hover-image" src="./event_files/badmintoncourt1.2.png" alt="BADMINTON " style="display: none; opacity: 0;">
+                    <div class="hover-overlay">
+                        <div class="hover-text">BADMINTON </div>
+                    </div>
+                </a>
+                <h2 style="text-align: center">BADMINTON </h2>
+
+                <ion-icon name="list-circle-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="round" stroke-linejoin="round" d="M224 184h128M224 256h128M224 327h128" class="ionicon-fill-none ionicon-stroke-width"></path><path d="M448 258c0-106-86-192-192-192S64 152 64 258s86 192 192 192 192-86 192-192z" stroke-miterlimit="10" class="ionicon-fill-none ionicon-stroke-width"></path><circle cx="168" cy="184" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle><circle cx="168" cy="257" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle><circle cx="168" cy="328" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle></svg></div></template></ion-icon>FACULTY GAME<br>
+                <ion-icon name="time-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64z" stroke-miterlimit="10" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linecap="round" stroke-linejoin="round" d="M256 128v144h96" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>5PM - 7PM<br>
+                 <ion-icon name="calendar-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect stroke-linejoin="round" x="48" y="80" width="416" height="384" rx="48" class="ionicon-fill-none ionicon-stroke-width"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path stroke-linejoin="round" stroke-linecap="round" d="M128 48v32M384 48v32" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linejoin="round" d="M464 160H48" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>2024-04-03<br>
+                 <ion-icon name="calendar-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect stroke-linejoin="round" x="48" y="80" width="416" height="384" rx="48" class="ionicon-fill-none ionicon-stroke-width"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path stroke-linejoin="round" stroke-linecap="round" d="M128 48v32M384 48v32" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linejoin="round" d="M464 160H48" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>2024-04-05<br>
+            </div>
+
+                        <div class="event animate" style="animation-delay: 200ms;">
+                <a href="http://localhost/AsgmPhPKS/event_detail.php?event_id=5">
+                    <img class="normal-image" src="./event_files/food_festival.JPG" alt="FOOD FESTIVAL">
+                    <img class="hover-image" src="./event_files/food(1).jpeg" alt="FOOD FESTIVAL" style="display: none; opacity: 0;">
+                    <div class="hover-overlay">
+                        <div class="hover-text">FOOD FESTIVAL</div>
+                    </div>
+                </a>
+                <h2 style="text-align: center">FOOD FESTIVAL</h2>
+
+                <ion-icon name="list-circle-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="round" stroke-linejoin="round" d="M224 184h128M224 256h128M224 327h128" class="ionicon-fill-none ionicon-stroke-width"></path><path d="M448 258c0-106-86-192-192-192S64 152 64 258s86 192 192 192 192-86 192-192z" stroke-miterlimit="10" class="ionicon-fill-none ionicon-stroke-width"></path><circle cx="168" cy="184" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle><circle cx="168" cy="257" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle><circle cx="168" cy="328" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle></svg></div></template></ion-icon>FESTIVAL<br>
+                <ion-icon name="time-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64z" stroke-miterlimit="10" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linecap="round" stroke-linejoin="round" d="M256 128v144h96" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>5PM - 7PM<br>
+                 <ion-icon name="calendar-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect stroke-linejoin="round" x="48" y="80" width="416" height="384" rx="48" class="ionicon-fill-none ionicon-stroke-width"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path stroke-linejoin="round" stroke-linecap="round" d="M128 48v32M384 48v32" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linejoin="round" d="M464 160H48" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>2024-04-11<br>
+                 <ion-icon name="calendar-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect stroke-linejoin="round" x="48" y="80" width="416" height="384" rx="48" class="ionicon-fill-none ionicon-stroke-width"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path stroke-linejoin="round" stroke-linecap="round" d="M128 48v32M384 48v32" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linejoin="round" d="M464 160H48" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>2024-04-26<br>
+            </div>
+
+                        <div class="event animate" style="animation-delay: 300ms;">
+                <a href="http://localhost/AsgmPhPKS/event_detail.php?event_id=7">
+                    <img class="normal-image" src="./event_files/game6.jpg" alt="E SPORT ">
+                    <img class="hover-image" src="./event_files/game3.jpg" alt="E SPORT " style="display: none; opacity: 0;">
+                    <div class="hover-overlay">
+                        <div class="hover-text">E SPORT </div>
+                    </div>
+                </a>
+                <h2 style="text-align: center">E SPORT </h2>
+
+                <ion-icon name="list-circle-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="round" stroke-linejoin="round" d="M224 184h128M224 256h128M224 327h128" class="ionicon-fill-none ionicon-stroke-width"></path><path d="M448 258c0-106-86-192-192-192S64 152 64 258s86 192 192 192 192-86 192-192z" stroke-miterlimit="10" class="ionicon-fill-none ionicon-stroke-width"></path><circle cx="168" cy="184" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle><circle cx="168" cy="257" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle><circle cx="168" cy="328" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle></svg></div></template></ion-icon>FACULTY GAME<br>
+                <ion-icon name="time-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64z" stroke-miterlimit="10" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linecap="round" stroke-linejoin="round" d="M256 128v144h96" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>5PM - 7PM<br>
+                 <ion-icon name="calendar-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect stroke-linejoin="round" x="48" y="80" width="416" height="384" rx="48" class="ionicon-fill-none ionicon-stroke-width"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path stroke-linejoin="round" stroke-linecap="round" d="M128 48v32M384 48v32" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linejoin="round" d="M464 160H48" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>2024-04-17<br>
+                 <ion-icon name="calendar-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect stroke-linejoin="round" x="48" y="80" width="416" height="384" rx="48" class="ionicon-fill-none ionicon-stroke-width"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path stroke-linejoin="round" stroke-linecap="round" d="M128 48v32M384 48v32" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linejoin="round" d="M464 160H48" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>2024-04-18<br>
+            </div>
+
+                        <div class="event animate" style="animation-delay: 400ms;">
+                <a href="http://localhost/AsgmPhPKS/event_detail.php?event_id=12">
+                    <img class="normal-image" src="./event_files/image_663a2b44a96b1.jpeg" alt="Dating">
+                    <img class="hover-image" src="./event_files/image_663a2b44a9da4.jpeg" alt="Dating" style="display: none; opacity: 0;">
+                    <div class="hover-overlay">
+                        <div class="hover-text">Dating</div>
+                    </div>
+                </a>
+                <h2 style="text-align: center">Dating</h2>
+
+                <ion-icon name="list-circle-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="round" stroke-linejoin="round" d="M224 184h128M224 256h128M224 327h128" class="ionicon-fill-none ionicon-stroke-width"></path><path d="M448 258c0-106-86-192-192-192S64 152 64 258s86 192 192 192 192-86 192-192z" stroke-miterlimit="10" class="ionicon-fill-none ionicon-stroke-width"></path><circle cx="168" cy="184" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle><circle cx="168" cy="257" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle><circle cx="168" cy="328" r="8" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></circle></svg></div></template></ion-icon>FESTIVAL<br>
+                <ion-icon name="time-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path d="M256 64C150 64 64 150 64 256s86 192 192 192 192-86 192-192S362 64 256 64z" stroke-miterlimit="10" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linecap="round" stroke-linejoin="round" d="M256 128v144h96" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>5PM - 7PM<br>
+                 <ion-icon name="calendar-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect stroke-linejoin="round" x="48" y="80" width="416" height="384" rx="48" class="ionicon-fill-none ionicon-stroke-width"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path stroke-linejoin="round" stroke-linecap="round" d="M128 48v32M384 48v32" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linejoin="round" d="M464 160H48" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>2024-05-07<br>
+                 <ion-icon name="calendar-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect stroke-linejoin="round" x="48" y="80" width="416" height="384" rx="48" class="ionicon-fill-none ionicon-stroke-width"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path stroke-linejoin="round" stroke-linecap="round" d="M128 48v32M384 48v32" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linejoin="round" d="M464 160H48" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>2024-05-29<br>
+            </div>
+
+            </div>
+<br><br>
+
+
+
+
+    
+    <title></title>
+    <style>
+        /* Footer styling */
+        footer {
+            background-color: #111;
+            color: white;
+            padding: 40px 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            margin-bottom: 30px;
+        }
+
+        .footer-top > div,
+        .footer-top .map {
+            flex: 1;
+        }
+
+        .footer-top .company h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .footer-top .company p {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: grey;
+        }
+
+        .footer-top .company img {
+            margin-right: 10px;
+            border-radius: 20px;
+            width: 50px;
+            height: auto;
+        }
+
+       .socialIcons a img {
+    border-radius: 50%;
+    width: 50px; /* Adjust width */
+    height: 50px; /* Adjust height */
+    filter: invert(100%); /* Change color to white */
+}
+
+.socialIcons a:hover {
+    transform: scale(1.1);
+}
+
+
+       
+        .footerNav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0;
+        }
+
+        .footerNav ul li {
+            padding: 5px 10px;
+            font-size: 18px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .footerNav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footerNav ul li a:hover {
+            color: #FFD700;
+            opacity: 1;
+        }
+
+        .map iframe {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            border: none;
+            margin-top: 20px;
+        }
+
+        .footerBottom {
+            background-color: #000;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footerBottom p {
+            margin: 0;
+            opacity: 0.7;
+        }
+
+        .designer {
+            font-weight: bold;
+            color: #FFD700;
+        }
+    </style>
+    
+    <style>
+  .contact-container {
+    font-family: Arial, sans-serif; /* Adjust the font-family as needed */
+    color: white; /* Text color */
+    padding: 18px; /* Add some padding */
+  }
+
+  .contact-container h2 {
+    font-size: 24px; /* Adjust as needed */
+    margin-bottom: 10px; /* Space below the header */
+  }
+
+  .contact-details {
+    font-size: 18px; /* Adjust as needed */
+  }
+
+  .contact-details span {
+    display: block; /* Each span on its own line */
+    margin: 5px 0; /* Some margin for spacing */
+  }
+
+  .contact-details a {
+    color: #EFEFEF; /* Light grey color for links, adjust as needed */
+    text-decoration: none; /* No underline */
+  }
+  
+  .contact-details a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+</style>
+    
+
+
+    <footer>
+        <div class="footer-top">
+            <div class="company">
+                <h1>OK Society</h1>
+                <p>Sponsorship</p>
+                <img src="./event_files/sponsored.png" alt="Sponsorship 1">
+                <img src="./event_files/sponsored2.png" alt="Sponsorship 2">
+                <img src="./event_files/sponsored3.png" alt="Sponsorship 3">
+            </div>
+            <div class="socialIcons">
+                <a href="https://www.facebook.com/tunkuabdulrahmanuniversitycollege/" target="_blank">
+                    <img src="./event_files/facebookicon.png" alt="Facebook">
+                </a>
+                <a href="https://twitter.com/KlTaruc" target="_blank">
+                    <img src="./event_files/twittericon.png" alt="Twitter">
+                </a>
+                <a href="https://www.instagram.com/tarumt.official/" target="_blank">
+                    <img src="./event_files/instagramicon.png" alt="Instagram">
+                </a>
+            </div>
+            <div class="contact-container">
+    <h2>Contact Detail</h2>
+    <div class="contact-details">
+      <span>Email: <a href="mailto:ongwk-pm23@student.tarc.edu.my"><br>ongwk-pm23@student.tarc.edu.my</a></span>
+      <span>Phone: <a href="tel:048995230">04-899 5230</a></span>
+    </div>
+  </div>
+            <div class="map">
+  <iframe src="./event_files/embed.html" loading="lazy">
+        </iframe>            </div>
+        </div>
+        <div class="footerNav">
+            <ul>
+                <li><a href="http://localhost/AsgmPhPKS/home.php">Home</a></li>
+                <li><a href="http://localhost/AsgmPhPKS/aboutus.php">About Us</a></li>
+                <li><a href="http://localhost/AsgmPhPKS/events.php">Events</a></li>
+                <li><a href="http://localhost/AsgmPhPKS/feedback.php">Feedback</a></li>
+                <li><a href="http://localhost/AsgmPhPKS/history.php">History</a></li>
+                <li><a href="http://localhost/AsgmPhPKS/profile.php">Profile</a></li>
+                <li><a href="http://localhost/AsgmPhPKS/favourite.php">Favourite</a></li>
+                <li><a href="http://localhost/AsgmPhPKS/cart.php">Cart</a></li>
+            </ul>
+        </div>
+        <div class="footerBottom">
+        </div>
+    </footer>
+
+
+<script>
+    // JavaScript to add animation to event cards
+    document.addEventListener('DOMContentLoaded', function () {
+        const events = document.querySelectorAll('.event');
+        events.forEach((event, index) => {
+            setTimeout(() => {
+                event.classList.add('animate');
+            }, index * 100); // Adjust animation delay as needed
+        });
+    });
+
+    // JavaScript to toggle between normal and hover images on mouseover/mouseout
+    const eventCards = document.querySelectorAll('.event');
+    eventCards.forEach(card => {
+        const normalImage = card.querySelector('.normal-image');
+        const hoverImage = card.querySelector('.hover-image');
+        card.addEventListener('mouseover', () => {
+            normalImage.style.display = 'none';
+            hoverImage.style.display = 'block';
+        });
+        card.addEventListener('mouseout', () => {
+            hoverImage.style.display = 'none';
+            normalImage.style.display = 'block';
+        });
+    });
+</script>
+<script>
+   // JavaScript to toggle between normal and hover images on mouseover/mouseout
+  document.querySelectorAll('.event').forEach((card, index) => {
+    // Delay the animation based on card position
+    card.style.animationDelay = `${index * 100}ms`;
+
+    const normalImage = card.querySelector('.normal-image');
+    const hoverImage = card.querySelector('.hover-image');
+
+    // Initially hide the hover image
+    hoverImage.style.opacity = '0';
+
+    card.addEventListener('mouseover', () => {
+        normalImage.style.opacity = '0';
+        hoverImage.style.opacity = '1';
+    });
+
+    card.addEventListener('mouseout', () => {
+        normalImage.style.opacity = '1';
+        hoverImage.style.opacity = '0';
+    });
+});
+
+
+   // Smooth scrolling for anchor links
+   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+       anchor.addEventListener('click', function (e) {
+           e.preventDefault();
+
+           document.querySelector(this.getAttribute('href')).scrollIntoView({
+               behavior: 'smooth'
+           });
+       });
+   });
+</script>
+    
+<script type="module" src="./event_files/ionicons.esm.js.download"></script>
+<script nomodule="" src="./event_files/ionicons.js.download"></script>
+<script src="./event_files/your-fontawesome-kit.js.download"></script>
+<script src="./event_files/jquery-3.5.1.min.js.download"></script>
+<script src="./event_files/bootstrap.min.js.download"></script>
+
+
+</body></html>
