@@ -82,8 +82,8 @@ function sendEmail($username, $email) {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com'; // Replace with your SMTP host
         $mail->SMTPAuth = true;
-        $mail->Username = 'tankahseang05@gmail.com'; // Replace with your SMTP username
-        $mail->Password = 'qpnazwzwvowwbwhb'; // Replace with your SMTP password
+        $mail->Username = 'changkarxi@gmail.com';
+        $mail->Password = 'rput xmjn uvkr hbhg'; 
         $mail->Port = 587; // Replace with your SMTP port
         $mail->SMTPSecure = 'tls'; // Replace with 'tls' or 'ssl' based on your SMTP settings
 
