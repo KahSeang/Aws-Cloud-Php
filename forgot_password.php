@@ -17,11 +17,11 @@ function sendEmail($to, $subject, $body) {
         $mail->isSMTP();                                            // Send using SMTP
         $mail->Host = 'smtp.gmail.com';                       // Set the SMTP server to send through
         $mail->SMTPAuth = true;                                   // Enable SMTP authentication
-        $mail->Username = 'tankahseang05@gmail.com';                 // SMTP username
-        $mail->Password = 'qpnazwzwvowwbwhb';                        // SMTP password
+        $mail->Username = 'changkarxi@gmail.com';                 // SMTP username
+        $mail->Password = 'rput xmjn uvkr hbhg';                        // SMTP password
         $mail->Port = 587;                                    // TCP port to connect to
         // Recipients
-        $mail->setFrom('tankahseang05@gmail.com', 'KAH SEANG帅哥');
+        $mail->setFrom('changkarxi@gmail.com', 'KAH SEANG帅哥');
         $mail->addAddress($to);                                     // Add a recipient
         // Content
         $mail->isHTML(true);                                        // Set email format to HTML
@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
         $update_query = "UPDATE users SET reset_token='$reset_token' WHERE email='$email'";
         mysqli_query($conn, $update_query);
 
-        $reset_link = "http://localhost/AsgmPhPKS/reset_password.php?token=" . $reset_token;
+        $reset_link = "http://54.209.233.146/reset_password.php?token=" . $reset_token;
         $body = "Please click the following link to reset your password: " . $reset_link;
         if (sendEmail($email, 'Password Reset', $body)) {
             $success_message = "A password reset link has been sent to your email address.";
