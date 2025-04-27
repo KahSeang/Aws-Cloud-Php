@@ -15,12 +15,12 @@ function sendEmail($to, $subject, $body) {
         $mail->isSMTP();                                            // Send using SMTP
         $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = 'tankahseang05@gmail.com';              // SMTP username
-        $mail->Password   = 'qpnazwzwvowwbwhb';                        // SMTP password (use an app password here)
+        $mail->Username   = 'changkarxi@gmail.com';              // SMTP username
+        $mail->Password   = 'rput xmjn uvkr hbhg';                        // SMTP password (use an app password here)
         $mail->Port       = 587;                                    // TCP port to connect to
 
         // Recipients
-        $mail->setFrom('tankahseang05@gmail.com', 'Rasa Senang Register Confirmation');
+        $mail->setFrom('changkarxi@gmail.com', 'Super Handsome Ks');
         $mail->addAddress($to);                                     // Add a recipient
         
         // Content
