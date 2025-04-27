@@ -88,7 +88,7 @@ function sendEmail($username, $email) {
         $mail->SMTPSecure = 'tls'; // Replace with 'tls' or 'ssl' based on your SMTP settings
 
         // Sender and recipient
-        $mail->setFrom('tankahseang05@gmail.com', 'Your Name');
+        $mail->setFrom('changkarxi@gmail.com', 'Kah seang love choco mint');
         $mail->addAddress($email, $username);
 
         // Email content
