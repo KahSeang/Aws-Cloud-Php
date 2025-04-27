@@ -1,35 +1,21 @@
 <?php
 include 'adminheader.php';
 include 'adminsidebar.php';
-    
-// Check if user ID is provided in the URL
+session_start();
+
 if (!isset($_GET['user_id'])) {
-    header("Location: watchadmin.php"); // Redirect if user ID is not provided
+    header("Location: watchadmin.php"); 
     exit();
 }
+include 'db_connection.php';
 
-// Connect to the database
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "login";
 
-// Create connection
-$connection = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($connection->connect_error) {
-    die("Connection failed: " . $connection->connect_error);
-}
-
-// Initialize variables to store user details
 $username = $email = '';
 $update_message = '';
 
-// Retrieve user details based on user ID
 $user_id = $_GET['user_id'];
 $sql = "SELECT * FROM admin WHERE admin_id = ?";
-$stmt = $connection->prepare($sql);
+$stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -53,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Update user details in the database
     $sql = "UPDATE admin SET username = ?, email = ? WHERE admin_id = ?";
-    $stmt = $connection->prepare($sql);
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssi", $username, $email, $user_id);
 
     if ($stmt->execute()) {
@@ -76,8 +62,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Modify User</title>
     <style>
         .container {
-            position:relative;
-            top:90px;
             max-width: 400px;
             margin: 0 auto;
             padding: 20px;
