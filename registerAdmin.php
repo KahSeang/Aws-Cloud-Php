@@ -38,30 +38,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $emailErr = "Invalid email format";
         } else {
-            // Check if the email is already registered
-            $query = "SELECT email FROM admin WHERE email='$email'";
-            $result = mysqli_query($conn, $query);
-            if (mysqli_num_rows($result) > 0) {
-                $emailErr = "This email is already registered";
-            } else {
-                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-                $insertQuery = "INSERT INTO admin (username, password, email) VALUES (?, ?, ?)";
-                $stmt = mysqli_prepare($conn, $insertQuery);
-                mysqli_stmt_bind_param($stmt, "sss", $username, $passwordHash, $email);
-                if (mysqli_stmt_execute($stmt)) {
+         // Check if the email is already registered in admin or users
+$queryAdmin = "SELECT email FROM admin WHERE email='$email'";
+$queryUsers = "SELECT email FROM users WHERE email='$email'";
 
-                    if (sendEmail($username, $email)) {
-                        echo '<script>alert("Registration successful. Email sent successfully."); window.location.replace("login.php");</script>';
-                        exit();
-                    } else {
-                        echo '<script>alert("Registration successful. Email could not be sent."); window.location.replace("login.php");</script>';
-                        exit();
-                    }
-                } else {
-                    echo '<script>alert("Error: ' . mysqli_error($conn) . '");</script>';
-                }
-                mysqli_stmt_close($stmt);
-            }
+$resultAdmin = mysqli_query($conn, $queryAdmin);
+$resultUsers = mysqli_query($conn, $queryUsers);
+
+if (mysqli_num_rows($resultAdmin) > 0 || mysqli_num_rows($resultUsers) > 0) {
+    $emailErr = "This email is already registered";
+} else {
+    // Proceed with insert
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    $insertQuery = "INSERT INTO admin (username, password, email) VALUES (?, ?, ?)";
+    $stmt = mysqli_prepare($conn, $insertQuery);
+    mysqli_stmt_bind_param($stmt, "sss", $username, $passwordHash, $email);
+    if (mysqli_stmt_execute($stmt)) {
+
+        if (sendEmail($username, $email)) {
+            echo '<script>alert("Registration successful. Email sent successfully."); window.location.replace("login.php");</script>';
+            exit();
+        } else {
+            echo '<script>alert("Registration successful. Email could not be sent."); window.location.replace("login.php");</script>';
+            exit();
+        }
+    } else {
+        echo '<script>alert("Error: ' . mysqli_error($conn) . '");</script>';
+    }
+    mysqli_stmt_close($stmt);
+}
+
             mysqli_close($conn);
         }
     }
