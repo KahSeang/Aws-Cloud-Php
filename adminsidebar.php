@@ -142,8 +142,8 @@ body {
                 <i class="fas fa-users"></i> Payment
             </a>
             <ul class="sub-menu">
-                <li><a href="adminPaymethod.php">Payment Method</a></li>
-                <li><a href="adminPayment.php">Payment Details</a></li>
+                <li><a href="AdminPaymethod.php">Payment Method</a></li>
+                <li><a href="AdminPayment.php">Payment Details</a></li>
             </ul>
         </li>
         <li class="nav-item">
