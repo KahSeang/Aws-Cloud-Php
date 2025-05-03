@@ -45,7 +45,7 @@ $stmt->bind_param("ssssssssssisi", // 13 characters
             if ($_FILES[$image_field]["size"] > 50000000) {
                 echo "Sorry, your file is too large.";
                 return false;
-            } elseif (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif'])) { // Allowed image file extensions
+            } if (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'])) {// Allowed image file extensions
                 echo "Sorry, only JPG, JPEG, PNG, and GIF files are allowed.";
                 return false;
             } else {
